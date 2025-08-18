@@ -33,3 +33,33 @@
   "max_blocks": 6
 }
 {% endschema %}
+
+<section class="products-section">
+  <!-- Title -->
+  <h2 class="section-title">Tisso vison in the wild</h2>
+  <!-- Grid Container -->
+  <div class="products-grid">
+    {% for block in section.blocks %}
+      {% assign product = all_products[block.settings.product] %}
+      <div class="product-card">
+        <div class="image-wrapper">
+          <img
+            src="{{ product.featured_image | img_url: 'medium' }}"
+            alt="{{ product.title }}"
+            width=""
+            height=""
+          >
+
+            <!-- Plus button (+) -->
+            <button
+                class="plus-btn"
+                data-handle="{{ product.handle }}"
+                style="top: {{ block.settings.pos_y }}%; left: {{ block.settings.pos_top }}%;"
+            >
+             +
+            </button>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
