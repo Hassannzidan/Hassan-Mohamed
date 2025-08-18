@@ -1,0 +1,18 @@
+{
+    "sections":{
+        "header":{
+            "type":"header-section",
+            "settings":{}
+        },
+        "grid":{
+            "type":"grid-section",
+            "settings":{},
+            "blocks":{},
+            "block_order":[]
+        }
+    },
+    "order":[
+        "header",
+        "grid"
+    ]
+}
