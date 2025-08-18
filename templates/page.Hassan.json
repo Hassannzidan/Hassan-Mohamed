@@ -1,4 +1,5 @@
 {
+  "layout":"clean",
   "sections": {
     "header": {
       "type": "header-section",
