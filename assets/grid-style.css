@@ -314,3 +314,52 @@ body {
   background-color: #000;
   color: #fff;
 }
+
+/*================================
+    Add to Cart Button
+  ================================*/
+  #addToCartBtn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 22px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 30px;
+    width: 100%;
+    letter-spacing: 1px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #addToCartBtn .addToCartBtn-text {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  #addToCartBtn .addToCartBtn-icon {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  /*================================
+    Plus Button 
+  ================================*/
+  .plus-btn {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .plus-icon {
+    width: 30px;
+    height: 30px;
+    color: white;
+  }
