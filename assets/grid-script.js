@@ -219,3 +219,54 @@ function handleAddToCart() {
     })
     .catch((err) => console.error("Failed to add item to cart:", err));
 }
+
+// =============================================
+// Initialization Event Listeners
+// =============================================
+document.addEventListener("DOMContentLoaded", () => {
+  // Product plus buttons
+  document.querySelectorAll(".plus-btn").forEach((btn) => {
+    btn.addEventListener("click", ()=> 
+        handleProductClick(btn.dataset.handle)
+);
+  });
+
+  // Cart drawer close
+  document.getElementById("closeCart").addEventListener("click", closeCartDrawer);
+  // Size dropdown toggle
+  document
+    .getElementById("sizeDropdownBtn")
+    .addEventListener("click", () => {
+      const list = document.getElementById("sizeDropdownList");
+      const btn = document.getElementById("sizeDropdownBtn");
+      list.classList.toggle("open");
+      btn.classList.toggle("active");
+    });
+
+    // Add to cart
+    document
+    .getElementById("addToCartBtn")
+    .addEventListener("click", handleAddToCart);
+
+    // Close modal : X button
+    document
+    .getElementById("closeFromSvg")
+    .addEventListener("click", closeModal);
+
+    // Close modal : Escape key
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    });
+
+    // Close modal : Click outside
+    window.addEventListener("click", (e) => {
+      const modal = document.getElementById("myModal");
+      if (modal && e.target === modal) {
+        closeModal();
+      }
+    });
+});
+
+  
