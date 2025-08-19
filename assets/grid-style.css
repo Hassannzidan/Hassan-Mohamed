@@ -166,3 +166,52 @@ body {
   color: #000;
   margin-top: 11px 0 3px;
 }
+
+/*================================
+    Color Options
+  ================================*/
+.color-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.color-options label {
+  font-size: 15px;
+  color: #333;
+}
+
+#colorContainer {
+  display: flex;
+  position: relative;
+  border: 1px solid #000;
+  overflow: hidden;
+}
+
+/* Color Buttons */
+.color-btn {
+  position: relative;
+  flex: 1;
+  padding: 10px 20px;
+  background: transparent;
+  cursor: pointer;
+  text-align: start;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  z-index: 3;
+  color: #000;
+  transition: color 0.3s ease;
+}
+.color-btn::before {
+  content: "";
+  padding: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 6px;
+  background-color: var(--color);
+  border-right: 1px solid #000;
+  z-index: 1;
+}
+.color-btn:active{
+  color: #fff;
+  background-color: all 0.6s ease-in-out;
+}
