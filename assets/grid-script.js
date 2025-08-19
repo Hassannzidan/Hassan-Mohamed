@@ -160,3 +160,62 @@ function renderProductModal(product) {
     });
   }
 }
+
+// =============================================
+// Event Handlers
+// =============================================
+async function handleProductClick(event) {
+  try {
+    const product = await fetchJson(`/products/${handle}.js`);
+    currentProduct = product;
+    renderProductModal(product);
+    openModal();
+  } catch (err) {
+    console.error("Failed opening product modal: ", err);
+  }
+}
+
+function handleAddToCart() {
+  if (!currentProduct) {
+    alert("No product selected");
+    return;
+  }
+
+  const selectedColorBtn = document.querySelector(".color-btn.active");
+  const selectedColor = selectedColorBtn?.textContent || null;
+
+  const selectedSize =
+    document.getElementById("sizeDropdownBtn")?.textContent !==
+    "Choose your size"
+      ? document.getElementById("sizeDropdownBtn").textContent
+      : null;
+
+  const selectedVariant = currentProduct.variants.find(
+    (v) =>
+      !selectedColor | v.options.includes(selectedColor) &&
+      (!selectedSize || v.options.includes(selectedSize))
+  );
+  if (!selectedVariant) {
+    alert("Please select a valid color and size.");
+    return;
+  }
+
+  // Prepare the data to be sent to the cart
+  fetch("/cart/add.js", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({
+      id: selectedVariant.id,
+      quantity: 1,
+    }),
+  })
+    .then((res) => res.json())
+    .then(() => {
+      closeModal();
+      openCartDrawer();
+    })
+    .catch((err) => console.error("Failed to add item to cart:", err));
+}
