@@ -1,0 +1,42 @@
+/*================================
+    Base & Global Styles
+  ================================*/
+body{
+    font-family: 'Jost', sans-serif;
+}
+
+/*================================
+    Modal Top (Product Preview)
+  ================================*/
+.modal-top {
+    display: flex;
+    align-items: stretch;
+    gap: 15px;
+}
+
+.modal-top img.product-image {
+    width: 136px;
+    height: 167px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.basic-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 161px;
+}
+
+.basic-details h2{
+    font-size: 16px;
+    margin: 10px 0 0;
+    font-weight: bold;
+}
+.basic-details p{
+    font-size: 14px;
+    margin: 3px 0 0;
+    color: #333;
+    line-height: 1.2;
+}
+
