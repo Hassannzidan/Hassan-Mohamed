@@ -1,14 +1,91 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-  "layout":"clean",
+  "layout": "clean",
   "sections": {
     "header": {
       "type": "header-section",
-      "settings": {}
+      "settings": {
+        "nav_subtitle": "Find the ideal gift for your loved ones.",
+        "nav_button": "Choose Gift",
+        "left_title": "The Gift Guid",
+        "left_text": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "left_button": "Shop Now",
+        "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+      }
     },
     "grid": {
       "type": "grid-section",
+      "blocks": {
+        "product_YXxChy": {
+          "type": "product",
+          "settings": {
+            "product": "dark-denim-top",
+            "pos_x": 50,
+            "pos_y": 50
+          }
+        },
+        "product_ntEcjr": {
+          "type": "product",
+          "settings": {
+            "product": "classic-leather-jacket",
+            "pos_x": 50,
+            "pos_y": 50
+          }
+        },
+        "product_A7fhhm": {
+          "type": "product",
+          "settings": {
+            "product": "classic-varsity-top",
+            "pos_x": 50,
+            "pos_y": 50
+          }
+        },
+        "product_Ebd7LV": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt",
+            "pos_x": 50,
+            "pos_y": 50
+          }
+        },
+        "product_jG3x87": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "pos_x": 50,
+            "pos_y": 50
+          }
+        },
+        "product_dFcWry": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag",
+            "pos_x": 50,
+            "pos_y": 50
+          }
+        }
+      },
+      "block_order": [
+        "product_YXxChy",
+        "product_ntEcjr",
+        "product_A7fhhm",
+        "product_Ebd7LV",
+        "product_jG3x87",
+        "product_dFcWry"
+      ],
       "settings": {}
     }
   },
-  "order": ["header", "grid"]
+  "order": [
+    "header",
+    "grid"
+  ]
 }
