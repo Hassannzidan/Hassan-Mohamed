@@ -38,6 +38,38 @@ function openModal() {
 }
 
 // =============================================
+// Cart Drawer Handling
+// =============================================
+async function openCartDrawer() {
+  try {
+    const cart = await fetchJson("/cart.js");
+    const cartItemsContainer = document.getElementById("cartItems");
+    cartItemsContainer.innerHTML = ""; // Clear previous items
+
+    cart.items.forEach((item) => {
+      const div = document.createElement("div");
+      div.className = "cart-item";
+
+      div.innerHTML = `
+                <img src="${item.image}" alt="${item.product_title}">
+                <div class="cart-item-details">
+                    <h4>${item.product_title}</h4>
+                    <p>Qty: ${item.quantity}</p>
+                    <p>${(item.price / 100).toFixed(2)}€</p>
+                </div>
+            `;
+      cartItemsContainer.appendChild(div);
+    });
+    document.getElementById("cartDrawer").classList.add("active");
+  } catch (err) {
+    console.error("Failed to open cart drawer:", err);
+  }
+}
+function closeCartDrawer() {
+  document.getElementById("cartDrawer").classList.remove("active");
+}
+
+// =============================================
 // Modal : Render Product Data
 // =============================================
 function renderProductModal(product) {
@@ -76,6 +108,55 @@ function renderProductModal(product) {
       colorBtn.textContent = color;
       colorBtn.className = "color-btn";
       colorBtn.style.setProperty("--color", color.toLowerCase());
+
+      if (i === 0) colorBtn.classList.add("active");
+      colorBtn.addEventListener("click", () => {
+        const buttons = [...document.querySelectorAll(".color-btn")];
+        const prevIndex = buttons.findIndex((b) =>
+          b.classList.contains("active")
+        );
+
+        // Switch active button
+        buttons.forEach((b) => b.classList.remove("active"));
+        colorBtn.classList.add("active");
+
+        // Move indicator
+        indicator.style.transform = `translateX(${i * 100}%)`;
+
+        //Slide animation for the text if the button be (Black) ==> Optional
+        if (color.toLowerCase() === "black" && i > prevIndex) {
+          colorBtn.style.animation = "slideRight 0.4s ease";
+          colorBtn.addEventListener(
+            "animationend",
+            () => (colorBtn.style.animation = ""),
+            { once: true }
+          );
+        }
+      });
+      colorContainer.appendChild(colorBtn);
+    });
+  }
+
+  // -----------------------------------------
+  // Sizes Dropdown Section
+  // -----------------------------------------
+  sizeDropdownList.innerHTML = ""; // Clear previous sizes
+  const sizeOption = product.options.find(
+    (opt) => opt.name.toLowerCase() === "size"
+  );
+
+  if (sizeOption) {
+    sizeOption.values.forEach((size) => {
+      const btn = document.createElement("button");
+      btn.textContent = size;
+
+      btn.addEventListener("click", () => {
+        const sizeBtn = document.getElementById("sizeDropdownBtn");
+        sizeBtn.textContent = size;
+        sizeDropdownBtnList.classList.remove("open");
+        sizeBtn.classList.add("active");
+      });
+      sizeDropdownList.appendChild(btn);
     });
   }
 }
