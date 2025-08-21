@@ -237,51 +237,135 @@ section {
 .gift-cta svg path { stroke: #fff; fill: #fff;}
 .gift-cta:hover svg path{ stroke: #000; fill: #000; }
 
+/*======================================================
+    Row 4 (Footer strip)
+  ====================================================== */
+
+.gift-row4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: clamp(5px, 2vw, 8px) clamp(10px, 4vw, 20px);
+    width: 100%;
+    background: #f5f5f5;
+    box-sizing: border-box;
+}
+
+.gift-footer {
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    font-size: clamp(14px, 1.5vw, 16px);
+    color: #000;
+    margin: 0;
+    text-align: center;
+}
+
+
+/*======================================================
+    Responsive Utilities
+  ====================================================== */
+
+.desktop-desc { display: block;}
+.mobile-desc { display: none;}
+.mobile-img { display: none;}
+
+
+/*======================================================
+    Breakpoints (Tablet & Mobile)
+  ====================================================== */
+
+/* Tablets and below*/
+@media (max-width: 1024px){
+    /* Nav adjustments*/
+    .burger-btn { display: block; }
+    .gift-nav { justify-content: center; }
+
+    /* Mobile Menu*/
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        background: #f5f5f5;
+        position: absolute;
+        top: 100%; left: 0; right: 0;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-10px);
+        padding: 0  15px;
+        transition: all 0.4 ease;
+    }
+
+    .nav-links.open{
+        max-height: 300px;
+        opacity: 1;
+        transform: translateY(0);
+        padding: 15px;
+        box-shadow: 0px 2px 4px rgba(0,0,0,0.15);
+    }
+    .nav-links .gift-subtitle {position: static; transform: none; margin-bottom:10px;}
+    .nav-links .gift-btn {width: auto; min-width: 200px; margin: 0 auto;}
+
+    /* Row3 layout*/
+    .gift-row3 {flex-direction: column; text-align: center; position: relative; overflow: hidden;}
+    .gift-row3-left {align-items: center;}
+    .gift-row3-right {display: none;}
+
+    /* Text */
+    .gift-title { font-size: clamp(20px, 6vw, 30px)}
+    .gift-desc{ font-size: clamp(14px, 3vw, 16px) }
+
+    /* Show mobile desc */
+    .desktop-desc{ display: none;}
+    .mobile-desc{ display: block;}
+
+    /* Mobile Image */
+    .mobile-img {
+        display: block;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+        margin: 0;
+        padding: 0;
+        z-index: -1;
+    }
+    .gift-row3 .mobile-img{
+        width: 100%;
+        transform: scale(1.5);
+        transform-origin: center;
+    }
+
+    /* CTA on mobile*/
+    .gift-row3 .gift-cta {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
 /*====== Mobile defult =======*/
 @media (max-width: 768px) {
-    .burger-btn {
-        display: block;
-        background:none;
-        border: none;
-        font-size: 28px;
-        cursor: pointer;
-        color: #000;
-        position: absolute;
-        left: 20px;
-    }
 
-    .gift-nav {
-        justify-content: center;
-        position: relative;
-    }
 
     .gift-logo {
         margin: 0 auto;
     }
 
     /*====== hide links =======*/
-    .nav-links {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        gap: 15px;
-        background: #f5f5f5;
-        padding: 15px;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-    }
 
-    .nav-links.open{
-        display: flex;
-        max-height: 300px;
-        opacity: 1;
-        padding: 15px;
-    }
 }
 
 /*====== Row 2 =======*/
@@ -314,24 +398,7 @@ section {
 /* this is maybe edited again */
 
 /*====== Raw 4 (Footer) =======*/
-.gift-row4 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 8px 20px;
-    width: 100%;
-    background: #f5f5f5;
-    box-sizing: border-box;
-}
 
-.gift-footer {
-    font-family: 'Jost', sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    color: #000;
-    margin: 0;
-    text-align: center;
-}
 
 /*====== Responsive =======*/
 @media (max-width: 1024px) {
@@ -357,11 +424,5 @@ section {
         display: block;
     }
 
-    .gift-title {
-        font-size: 40px;
-    }
-
-    .gift-desc{
-        font-size: 16px;
-    }
+ 
 }
