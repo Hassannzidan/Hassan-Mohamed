@@ -135,7 +135,7 @@ section {
   padding:  0 0 0 40px;
   width: 100%;
   box-sizing: border-box;
-  gap: clamp(15px, 4vw, 40px);
+  /* gap: clamp(15px, 4vw, 40px); */
 }
 
 /* Left side (title + desc + button) */
@@ -171,7 +171,8 @@ section {
 .gift-row3-right {
   flex: 1;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: end;
   align-items: center;
 }
 .gift-row3-right img {
