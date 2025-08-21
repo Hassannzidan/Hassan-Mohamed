@@ -32,7 +32,7 @@
           "type": "product",
           "settings": {
             "product": "black-leather-bag",
-            "pos_x": 64,
+            "pos_x": 60,
             "pos_y": 57
           }
         },
@@ -40,7 +40,7 @@
           "type": "product",
           "settings": {
             "product": "blue-silk-tuxedo",
-            "pos_x": 91,
+            "pos_x": 80,
             "pos_y": 54
           }
         },
@@ -48,7 +48,7 @@
           "type": "product",
           "settings": {
             "product": "chequered-red-shirt",
-            "pos_x": 66,
+            "pos_x": 61,
             "pos_y": 23
           }
         },
