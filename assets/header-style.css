@@ -106,17 +106,119 @@ section {
     transition-duration: 0.4s;
 } */
 
+/* Burger button (mobile view only) */
+.burger-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #000;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
-/*====== Desktop defult =======*/
+/* Nav links */
 .nav-links {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.burger-btn {
+/*======================================================
+    Row 2 (Full Image Banner)
+  ====================================================== */
+.gift-row2 img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    object-position: left;
+    display: block;
+    max-width: 100%;
+}
+
+
+/*======================================================
+    Row 3 (Contect + Image)
+  ====================================================== */
+
+.gift-row3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: clamp(10px,5vw,40px); 
+    width: 100%;
+    box-sizing: border-box;
+    gap: clamp(15px, 4vw, 40px);
+}
+
+/* Left side (title + desc + button) */
+
+.gift-row3-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    gap: clamp(10px, 3vw, 20px);
+}
+
+.gift-title {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #000;
+    margin: 0;
+    font-size: clamp(24px, 5vw, 70px);
+}
+
+.gift-desc{
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: min(90%, 480px);
+    margin: 0 0 clamp(15px, 3vw, 30px) 0;
+    color: #000;
+    font-size: clamp(14px, 2vw, 20px) ;
+}
+
+/* Right side (image) */
+.gift-row3-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gift-row3-right img {
+    width: clamp(500px, 60vw, 947px);
+    height: auto;
+    object-fit: contain;
+    margin-left: -5%;
     display: none;
 }
+
+
+/* CTA button (row 3)*/
+.gift-cta {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+    padding: clamp(10px, 2vw, 14px) clamp(20px, 5vw, 40px);
+    background: #000;
+    color: #fff;
+    border: none;
+    font-family: 'Jost', sans-serif;
+    font-size: clamp(14px , 2vw , 16px);
+    text-transform: uppercase;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 0;
+}
+
 
 /*====== Mobile defult =======*/
 @media (max-width: 768px) {
@@ -163,60 +265,18 @@ section {
 }
 
 /*====== Row 2 =======*/
-.gift-row2 img {
-    width: 100%;
-    max-width: none;
-    object-fit: cover;
-    object-position: left;
-    display: block;
-}
+
 
 /*====== Row 3 =======*/
 
-.gift-row3 {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0 0 40px;
-    width: 100%;
-    box-sizing: border-box;
-}
+
 
 .gift-row3 img {
     object-fit: cover;
     object-position: right 20%;
 }
 
-.gift-title {
-    font-family: 'Jost', sans-serif;
-    font-size: 70px;
-    font-weight: 500;
-    line-height: 100%;
-    color: #000;
-    margin-bottom: 20px;
-}
 
-.gift-desc{
-    font-family: 'Jost', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 140%;
-    max-width: 480px;
-    margin-bottom: 30px;
-    color: #000;
-}
-.gift-cta {
-    background: #000;
-    color: #fff;
-    border: none;
-    padding: 14px 40px;
-    font-family: 'Jost', sans-serif;
-    font-size: 16px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-}
 
 .gift-btn::after {
     content: '\2192';
@@ -236,11 +296,6 @@ section {
     transform: translateX(5px);
 }
 /* this is maybe edited again */
-.gift-row3-right img {
-    width: 100%;
-    max-width: 100%;
-    height: auto;
-}
 
 /*====== Raw 4 (Footer) =======*/
 .gift-row4 {
