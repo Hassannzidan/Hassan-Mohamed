@@ -219,6 +219,26 @@ section {
     z-index: 0;
 }
 
+.gift-cta::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #FFF544;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.gift-cta:hover::before { left: 0; opacity: 1;}
+.gift-cta:hover { color: #000; border-color: #FFF544;}
+.gift-cta svg path { stroke: #fff; fill: #fff;}
+.gift-cta:hover svg path{ stroke: #000; fill: #000; }
+
+
+
 
 /*====== Mobile defult =======*/
 @media (max-width: 768px) {
@@ -286,11 +306,7 @@ section {
     transition: all 0.3s ease;
 }
 
-.gift-cta:hover {
-    background: #FFD700;
-    color: #000;
-    border: none;
-}
+
 .gift-cta:hover::after {
     color: #000;
     transform: translateX(5px);
