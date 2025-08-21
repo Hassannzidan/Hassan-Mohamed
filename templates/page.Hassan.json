@@ -13,21 +13,41 @@
     "header": {
       "type": "header-section",
       "settings": {
+        "logo_type": "svg",
+        "logo_text": "My Brand",
         "nav_subtitle": "Find the ideal gift for your loved ones.",
         "nav_button": "Choose Gift",
         "left_title": "The Gift Guid",
-        "left_text": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "left_text_desktop": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
+        "left_text_mobile": "Discover Joy: Your Ultimate Holiday Gift Destination.",
         "left_button": "Shop Now",
-        "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+        "footer_text_desktop": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
+        "footer_text_mobile": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR"
       }
     },
     "grid": {
       "type": "grid-section",
       "blocks": {
-        "product_YXxChy": {
+        "product_dFcWry": {
           "type": "product",
           "settings": {
-            "product": "dark-denim-top",
+            "product": "black-leather-bag",
+            "pos_x": 50,
+            "pos_y": 50
+          }
+        },
+        "product_jG3x87": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "pos_x": 50,
+            "pos_y": 50
+          }
+        },
+        "product_Ebd7LV": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt",
             "pos_x": 50,
             "pos_y": 50
           }
@@ -48,38 +68,22 @@
             "pos_y": 50
           }
         },
-        "product_Ebd7LV": {
+        "product_YXxChy": {
           "type": "product",
           "settings": {
-            "product": "chequered-red-shirt",
-            "pos_x": 50,
-            "pos_y": 50
-          }
-        },
-        "product_jG3x87": {
-          "type": "product",
-          "settings": {
-            "product": "blue-silk-tuxedo",
-            "pos_x": 50,
-            "pos_y": 50
-          }
-        },
-        "product_dFcWry": {
-          "type": "product",
-          "settings": {
-            "product": "black-leather-bag",
+            "product": "dark-denim-top",
             "pos_x": 50,
             "pos_y": 50
           }
         }
       },
       "block_order": [
-        "product_YXxChy",
+        "product_dFcWry",
+        "product_jG3x87",
+        "product_Ebd7LV",
         "product_ntEcjr",
         "product_A7fhhm",
-        "product_Ebd7LV",
-        "product_jG3x87",
-        "product_dFcWry"
+        "product_YXxChy"
       ],
       "settings": {}
     }
