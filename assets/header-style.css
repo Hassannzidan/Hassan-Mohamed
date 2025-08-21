@@ -180,6 +180,11 @@ section {
   margin-left: -5%;
   display: none;
 }
+/* Show row3 image only on desktop */
+@media (min-width: 1025px) {
+  .gift-row3-right img { display: block; }
+}
+
 
 /* CTA button (row 3) */
 .gift-cta {
