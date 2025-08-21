@@ -177,7 +177,7 @@ section {
 }
 .gift-row3-right img {
   /* width: clamp(500px, 60vw, 947px); */
-  width: 1035px;
+  width: 945px;
   height: auto;
   object-fit: contain;
   margin-left: -5%;
