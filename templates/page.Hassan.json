@@ -56,7 +56,7 @@
           "type": "product",
           "settings": {
             "product": "classic-leather-jacket",
-            "pos_x": 77,
+            "pos_x": 69,
             "pos_y": 20
           }
         },
@@ -72,7 +72,7 @@
           "type": "product",
           "settings": {
             "product": "dark-denim-top",
-            "pos_x": 81,
+            "pos_x": 73,
             "pos_y": 40
           }
         }
