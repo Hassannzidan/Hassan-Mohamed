@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="{{ request.locale.iso_code }}">
   <head>
-    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {% comment %} {{ 'base.css' | asset_url | stylesheet_tag }} {% endcomment %}
      {% render 'fonts' %}
     {{ content_for_header }}
   </head>
