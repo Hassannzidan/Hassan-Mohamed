@@ -1,8 +1,7 @@
 
 # Project Title
 <span>
-  <img src="docs/assets/shopify.svg" alt="Shopify" width="30"/> 
-  <strong> Advanced E-commerce Landing Page (Shopify)</strong>
+  🛍️ <strong> Advanced E-commerce Landing Page (Shopify)</strong>
 </span>
 
 A fully custom **Shopify landing page** designed with **Liquid, HTML, CSS, and JavaScript**.  
