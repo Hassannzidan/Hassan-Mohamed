@@ -1,7 +1,7 @@
 
 # Project Title
 <span>
-  <img src="docs/assets/shopify.svg" alt="Shopify" width="30"/> 
+  <img src="docs/screenshots/shopify.png" alt="Shopify" width="30"/> 
   <strong> Advanced E-commerce Landing Page (Shopify)</strong>
 </span>
 
