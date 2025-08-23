@@ -1,10 +1,23 @@
 /* =========================================================
-    Global Styles
+   Global Variables
    ========================================================= */
+:root {
+  --color-black: #000;
+  --color-white: #FFF;
+  --color-highlight: #FFF544;
+  --color-bg-light: #F7F7F7;
+  --color-bg-footer: #F5F5F5;
+  --font-main: 'Jost', sans-serif;
+}
 
-/* General section wrapper */
+/* =========================================================
+   Global Styles
+   ========================================================= */
+body {
+  font-family: var(--font-main);
+}
 section {
-  overflow-x: hidden;        /* منع أي scroll أفقي */
+  overflow-x: hidden;
   width: 100%;
   box-sizing: border-box;
   margin: 0;
@@ -12,9 +25,8 @@ section {
 }
 
 /* =========================================================
-    Navigation Bar
+   Navigation Bar
    ========================================================= */
-
 .gift-nav {
   display: flex;
   flex-direction: row;
@@ -22,7 +34,7 @@ section {
   align-items: center;
   padding: clamp(8px, 2vw, 10px) clamp(20px, 5vw, 50px);
   width: 100%;
-  background: #F7F7F7;
+  background: var(--color-bg-light);
   box-sizing: border-box;
   flex-wrap: nowrap;
   position: relative;
@@ -30,19 +42,17 @@ section {
 
 /* Logo */
 .gift-logo {
-  font-family: 'Jost', sans-serif;
   font-size: clamp(16px, 1.5vw, 18px);
   font-weight: 600;
-  color: #000;
+  color: var(--color-black);
   white-space: nowrap;
 }
 
 /* Subtitle (centered) */
 .gift-subtitle {
-  font-family: 'Jost', sans-serif;
   font-size: clamp(14px, 1.5vw, 16px);
   font-weight: 400;
-  color: #000;
+  color: var(--color-black);
   margin: 0;
   text-align: center;
   line-height: 1.25;
@@ -60,10 +70,9 @@ section {
   gap: 20px;
   width: clamp(160px, 20vw, 207px);
   padding: clamp(10px, 2vw, 14px) clamp(8px, 2vw, 10px);
-  background: #FFF544;
+  background: var(--color-highlight);
   border: none;
-  color: #000;
-  font-family: 'Jost', sans-serif;
+  color: var(--color-black);
   font-size: clamp(14px, 2vw, 16px);
   text-transform: uppercase;
   cursor: pointer;
@@ -71,8 +80,6 @@ section {
   transition: color 0.3s ease, border-color 0.3s ease;
   z-index: 0;
 }
-
-/* Hover overlay effect */
 .gift-btn::before {
   content: "";
   position: absolute;
@@ -80,15 +87,15 @@ section {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: #000;
+  background: var(--color-black);
   opacity: 0;
   transition: all 0.3s ease;
   z-index: -1;
 }
 .gift-btn:hover::before { left: 0; opacity: 1; }
-.gift-btn:hover { color: #fff; border-color: #000; }
-.gift-btn svg path { stroke: #000; fill: #000; }
-.gift-btn:hover svg path { stroke: #fff; fill: #fff; }
+.gift-btn:hover { color: var(--color-white); border-color: var(--color-black); }
+.gift-btn svg path { stroke: var(--color-black); fill: var(--color-black); }
+.gift-btn:hover svg path { stroke: var(--color-white); fill: var(--color-white); }
 
 /* Burger button (mobile only) */
 .burger-btn {
@@ -96,7 +103,7 @@ section {
   background: none;
   border: none;
   cursor: pointer;
-  color: #000;
+  color: var(--color-black);
   position: absolute;
   left: 20px;
   top: 50%;
@@ -111,9 +118,8 @@ section {
 }
 
 /* =========================================================
-    Row 2 (Full Image Banner)
+   Row 2 (Full Image Banner)
    ========================================================= */
-
 .gift-row2 img {
   width: 100%;
   height: auto;
@@ -124,59 +130,46 @@ section {
 }
 
 /* =========================================================
-    Row 3 (Content + Image)
+   Row 3 (Content + Image)
    ========================================================= */
-
 .gift-row3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: clamp(10px, 5vw, 40px); */
-  padding:  0 0 0 40px;
+  padding: 0 0 0 40px;
   width: 100%;
   box-sizing: border-box;
-  /* gap: clamp(15px, 4vw, 40px); */
 }
-
-/* Left side (title + desc + button) */
 .gift-row3-left {
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
-  gap: clamp(10px, 3vw, 20px);
+  gap: clamp(10px, 3vw, 30px);
 }
-
 .gift-title {
-  font-family: 'Jost', sans-serif;
   font-weight: 500;
   line-height: 1.1;
-  color: #000;
-  margin: 0;
+  color: var(--color-black);
+  margin: -55px 0 0 0;
   font-size: clamp(24px, 5vw, 70px);
 }
-
 .gift-desc {
-  font-family: 'Jost', sans-serif;
   font-weight: 400;
   line-height: 1.4;
   max-width: min(90%, 480px);
   margin: 0 0 clamp(15px, 3vw, 30px) 0;
-  color: #000;
+  color: var(--color-black);
   font-size: clamp(14px, 2vw, 20px);
 }
-
-/* Right side (image) */
 .gift-row3-right {
   flex: 1;
   display: flex;
-  /* justify-content: center; */
   justify-content: end;
   align-items: center;
 }
 .gift-row3-right img {
-  /* width: clamp(500px, 60vw, 947px); */
   width: 945px;
   height: auto;
   object-fit: contain;
@@ -188,7 +181,6 @@ section {
   .gift-row3-right img { display: block; }
 }
 
-
 /* CTA button (row 3) */
 .gift-cta {
   position: relative;
@@ -197,10 +189,10 @@ section {
   justify-content: center;
   gap: 20px;
   padding: clamp(10px, 2vw, 14px) clamp(20px, 5vw, 40px);
-  background: #000;
+  background: var(--color-black);
   border: none;
-  color: #FFF;
-  font-family: 'Jost', sans-serif;
+  color: var(--color-white);
+  font-weight: 400;
   font-size: clamp(14px, 2vw, 16px);
   text-transform: uppercase;
   cursor: pointer;
@@ -214,55 +206,49 @@ section {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: #FFF544;
+  background: var(--color-highlight);
   opacity: 0;
   transition: all 0.3s ease;
   z-index: -1;
 }
 .gift-cta:hover::before { left: 0; opacity: 1; }
-.gift-cta:hover { color: #000; border-color: #FFF544; }
-.gift-cta svg path { stroke: #FFF; fill: #FFF; }
-.gift-cta:hover svg path { stroke: #000; fill: #000; }
+.gift-cta:hover { color: var(--color-black); border-color: var(--color-highlight); }
+.gift-cta svg path { stroke: var(--color-white); fill: var(--color-white); }
+.gift-cta:hover svg path { stroke: var(--color-black); fill: var(--color-black); }
 
 /* =========================================================
-    Row 4 (Footer strip)
+   Row 4 (Footer strip)
    ========================================================= */
-
 .gift-row4 {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: clamp(5px, 2vw, 8px) clamp(10px, 4vw, 20px);
   width: 100%;
-  background: #F5F5F5;
+  background: var(--color-bg-footer);
   box-sizing: border-box;
 }
-
 .gift-footer {
-  font-family: 'Jost', sans-serif;
   font-weight: 400;
   font-size: clamp(14px, 1.5vw, 16px);
-  color: #000;
+  color: var(--color-black);
   margin: 0;
   text-align: center;
 }
 
 /* =========================================================
-    Responsive Utilities
+   Responsive Utilities
    ========================================================= */
-
 .desktop-desc { display: block; }
 .mobile-desc { display: none; }
 .mobile-img   { display: none; }
 
 /* =========================================================
-    Breakpoints (Tablet & Mobile)
+   Breakpoints (Tablet & Mobile)
    ========================================================= */
-
-/* Tablets and below */
-@media (max-width: 1024px) {
-  /* Nav adjustments */
-  .gift-nav { justify-content: center; }
+@media (max-width: 1440px) {
+  /* ---------------- Nav ---------------- */
+  .gift-nav { justify-content: center; padding: 18px 0; }
   .burger-btn { display: block; }
 
   /* Mobile Menu */
@@ -284,51 +270,67 @@ section {
     max-height: 300px;
     opacity: 1;
     transform: translateY(0);
-    padding: 15px;
+    padding: 25px 65.5px;
+    gap: 16px;
+    background: #F2F2F2;
     box-shadow: 0px 2px 4px rgba(0,0,0,0.15);
+    z-index: 1;
   }
   .nav-links .gift-subtitle { position: static; transform: none; margin-bottom: 10px; }
   .nav-links .gift-btn { width: auto; min-width: 200px; margin: 0 auto; }
 
-  .gift-row2 img {
-    display: none;
+  /* ---------------- Row 2 ---------------- */
+  .gift-row2 img { display: none; }
+
+  /* ---------------- Row 3 ---------------- */
+  .gift-row3 { flex-direction: column; text-align: center; position: relative; overflow: hidden; padding: 0; }
+  .gift-row3-left {
+    align-items: center;
+    width: 100%;
+    max-width: 90%;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+    gap: 16px;
+  }
+  .gift-row3-right { display: none; }
+  .gift-title {
+    font-size: clamp(30px, 6vw, 30px);
+    font-weight: 500;
+    margin: clamp(40px, 8vw, 60px) 0 clamp(10px, 4vw, 20px) 0;
+  }
+  .gift-desc {
+    font-size: clamp(16px, 3vw, 16px);
+    font-weight: 400;
+    margin: 0 auto clamp(20px, 6vw, 40px) auto;
   }
 
-  /* Row3 layout */
-  .gift-row3 { flex-direction: column; text-align: center; }
-  .gift-row3-left { align-items: center; }
-  .gift-row3-right { display: none; }
-
-  /* Text */
-  .gift-title { font-size: clamp(20px, 6vw, 30px); }
-  .gift-desc { font-size: clamp(14px, 3vw, 16px); }
-
-  /* Show mobile desc */
+  /* Mobile desc */
   .desktop-desc { display: none; }
   .mobile-desc { display: block; }
 
   /* Mobile Image */
-  .mobile-img { 
+  .img-container {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+  }
+  .img-container .mobile-img {
     display: block;
     width: 100%;
+    height: 100%;
     object-fit: cover;
-    object-position: center;
-    margin: 0;
-    padding: 0;
-    z-index: -1;
-  }
-  .gift-row3 { position: relative; overflow: hidden; }
-  .gift-row3 .mobile-img {
-    width: 100%;
-    transform: scale(1.5);
-    transform-origin: center;
+    object-position: center top;
   }
 
   /* CTA on mobile */
   .gift-row3 .gift-cta {
     position: absolute;
-    bottom: 20px;
+    bottom: 50px;
     left: 50%;
     transform: translateX(-50%);
+    padding: clamp(8px, 2vw, 14px) clamp(16px, 4vw, 30px);
+    font-size: clamp(16px, 3vw, 16px);
+    font-weight: 400;
   }
 }

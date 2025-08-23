@@ -1,60 +1,74 @@
-  // ==============================
-  // Global State
-  // ==============================
-  let currentProduct = null;
+// ==============================
+// Global State
+// ==============================
+let currentProduct = null;
 
-  // ==============================
-  // Utility Functions
-  // ==============================
+// ==============================
+// DOM Caching
+// ==============================
+const DOM = {
+  modal: document.getElementById("myModal"),
+  modalTitle: document.getElementById("modalTitle"),
+  modalPrice: document.getElementById("modalPrice"),
+  modalDescription: document.getElementById("modalDescription"),
+  modalImage: document.getElementById("modalImage"),
+  colorContainer: document.getElementById("colorContainer"),
+  sizeDropdownBtn: document.getElementById("sizeDropdownBtn"),
+  sizeDropdownList: document.getElementById("sizeDropdownList"),
+  cartDrawer: document.getElementById("cartDrawer"),
+  cartItemsContainer: document.getElementById("cartItems"),
+  closeCartBtn: document.getElementById("closeCart"),
+  addToCartBtn: document.getElementById("addToCartBtn"),
+};
 
-  /**
-   * Fetch JSON data safely
-   * @param {string} url
-   * @returns {Promise<any>}
-   */
-  async function fetchJSON(url) {
-    try {
-      const res = await fetch(url);
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-      return await res.json();
-    } catch (error) {
-      console.error(`Fetch failed: ${url}`, error);
-      throw error;
-    }
+// ==============================
+// Utility Functions
+// ==============================
+
+/**
+ * Fetch JSON data safely
+ * @param {string} url
+ * @returns {Promise<any>}
+ */
+async function fetchJSON(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+    return await res.json();
+  } catch (error) {
+    console.error(`Fetch failed: ${url}`, error);
+    throw error;
   }
+}
 
-  /**
-   * Close modal safely
-   */
-  function closeModal() {
-    const modal = document.getElementById("myModal");
-    if (modal) modal.style.display = "none";
-  }
+// ==============================
+// Modal Manager
+// ==============================
+const ModalManager = {
+  open() {
+    if (DOM.modal) DOM.modal.style.display = "block";
+  },
+  close() {
+    if (DOM.modal) DOM.modal.style.display = "none";
+  },
+};
 
-  /**
-   * Open modal safely
-   */
-  function openModal() {
-    const modal = document.getElementById("myModal");
-    if (modal) modal.style.display = "block";
-  }
-
-  // ==============================
-  // Cart Drawer Handling
-  // ==============================
-
-  async function openCartDrawer() {
+// ==============================
+// Cart Drawer Manager
+// ==============================
+const CartDrawerManager = {
+  async open() {
     try {
       const cart = await fetchJSON("/cart.js");
+      DOM.cartItemsContainer.innerHTML = "";
 
-      const cartItemsContainer = document.getElementById("cartItems");
-      cartItemsContainer.innerHTML = "";
+      const fragment = document.createDocumentFragment();
 
       cart.items.forEach((item) => {
-        const div = document.createElement("div");
-        div.className = "cart-item";
+        const cartItemEl = document.createElement("div");
+        cartItemEl.className = "cart-item";
 
-        div.innerHTML = `
+        cartItemEl.innerHTML = `
           <img src="${item.image}" alt="${item.product_title}" />
           <div class="cart-item-details">
             <h4>${item.product_title}</h4>
@@ -62,214 +76,241 @@
             <p>${(item.price / 100).toFixed(2)} €</p>
           </div>
         `;
-
-        cartItemsContainer.appendChild(div);
+        fragment.appendChild(cartItemEl);
       });
 
-      document.getElementById("cartDrawer").classList.add("active");
+      DOM.cartItemsContainer.appendChild(fragment);
+      DOM.cartDrawer.classList.add("active");
     } catch (err) {
       console.error("Error opening cart drawer:", err);
     }
+  },
+  close() {
+    DOM.cartDrawer.classList.remove("active");
+  },
+};
+
+// ==============================
+// Modal: Render Product Data
+// ==============================
+function renderProductModal(product) {
+  // Fill basic product info
+  DOM.modalTitle.textContent = product.title;
+  DOM.modalPrice.textContent = (product.price / 100).toFixed(2) + " €";
+  DOM.modalDescription.innerHTML = product.description;
+  DOM.modalImage.src = product.images[0] || "";
+
+  // ------------------------------
+  // Colors Section
+  // ------------------------------
+  DOM.colorContainer.innerHTML = "";
+  const colorOption = product.options.find(
+    (opt) => opt.name.toLowerCase() === "color"
+  );
+
+  if (colorOption) {
+    DOM.colorContainer.style.setProperty("--count", colorOption.values.length);
+
+    // Add color indicator
+    const colorIndicator = document.createElement("div");
+    colorIndicator.className = "color-indicator";
+    DOM.colorContainer.appendChild(colorIndicator);
+
+    colorOption.values.forEach((color, i) => {
+      const colorBtnEl = document.createElement("button");
+      colorBtnEl.textContent = color;
+      colorBtnEl.className = "color-btn";
+      colorBtnEl.style.setProperty("--color", color.toLowerCase());
+
+      if (i === 0) colorBtnEl.classList.add("active");
+
+      colorBtnEl.addEventListener("click", () => {
+        const allColorBtns = [...document.querySelectorAll(".color-btn")];
+        const prevIndex = allColorBtns.findIndex((b) =>
+          b.classList.contains("active")
+        );
+
+        // Switch active button
+        allColorBtns.forEach((b) => b.classList.remove("active"));
+        colorBtnEl.classList.add("active");
+
+        // Move indicator
+        colorIndicator.style.transform = `translateX(${i * 100}%)`;
+
+        // Optional animation if black
+        if (color.toLowerCase() === "black" && i > prevIndex) {
+          colorBtnEl.style.animation = "slideRight 0.4s ease";
+          colorBtnEl.addEventListener(
+            "animationend",
+            () => (colorBtnEl.style.animation = ""),
+            { once: true }
+          );
+        }
+      });
+
+      DOM.colorContainer.appendChild(colorBtnEl);
+    });
   }
 
-  function closeCartDrawer() {
-    document.getElementById("cartDrawer").classList.remove("active");
+  // ------------------------------
+  // Sizes Dropdown Section
+  // ------------------------------
+  DOM.sizeDropdownList.innerHTML = "";
+  const sizeOption = product.options.find(
+    (opt) => opt.name.toLowerCase() === "size"
+  );
+
+  if (sizeOption) {
+    sizeOption.values.forEach((size) => {
+      const sizeBtnEl = document.createElement("button");
+      sizeBtnEl.textContent = size;
+
+      sizeBtnEl.addEventListener("click", () => {
+        const labelSpan = DOM.sizeDropdownBtn.querySelector(".label");
+        labelSpan.textContent = size;
+        DOM.sizeDropdownBtn.classList.add("size-selected");
+
+        DOM.sizeDropdownList.classList.remove("open");
+        DOM.sizeDropdownBtn.classList.remove("active");
+      });
+
+      DOM.sizeDropdownList.appendChild(sizeBtnEl);
+    });
+  }
+}
+
+// ==============================
+// Event Handlers
+// ==============================
+
+async function showProductModal(handle) {
+  try {
+    const product = await fetchJSON(`/products/${handle}.js`);
+    currentProduct = product;
+    renderProductModal(product);
+    ModalManager.open();
+  } catch (err) {
+    console.error("Error opening product modal:", err);
+  }
+}
+
+async function handleAddToCart() {
+  if (!currentProduct) {
+    alert("No product selected");
+    return;
   }
 
-  // ==============================
-  // Modal: Render Product Data
-  // ==============================
+  const selectedColorBtn = document.querySelector(".color-btn.active");
+  const selectedColor = selectedColorBtn?.textContent || null;
 
-  function renderProductModal(product) {
-    // Cache DOM references
-    const modalTitle = document.getElementById("modalTitle");
-    const modalPrice = document.getElementById("modalPrice");
-    const modalDescription = document.getElementById("modalDescription");
-    const modalImage = document.getElementById("modalImage");
-    const colorContainer = document.getElementById("colorContainer");
-    const sizeDropdownList = document.getElementById("sizeDropdownList");
+  const labelSpan = DOM.sizeDropdownBtn.querySelector(".label");
+  const selectedSize =
+    labelSpan?.textContent !== "Choose your size" ? labelSpan?.textContent : null;
 
-    // Fill basic product info
-    modalTitle.textContent = product.title;
-    modalPrice.textContent = (product.price / 100).toFixed(2) + " €";
-    modalDescription.innerHTML = product.description;
-    modalImage.src = product.images[0] || "";
+  if (!selectedSize) {
+    alert("Please select a size");
+    return;
+  }
+  if (!selectedColor) {
+    alert("Please select a Color");
+    return;
+  }
 
-    // ------------------------------
-    // Colors Section
-    // ------------------------------
-    colorContainer.innerHTML = "";
-    const colorOption = product.options.find(
-      (opt) => opt.name.toLowerCase() === "color"
-    );
+  const selectedVariant = currentProduct.variants.find(
+    (v) =>
+      v.option1?.toLowerCase() === selectedSize.toLowerCase() &&
+      v.option2?.toLowerCase() === selectedColor.toLowerCase()
+  );
 
-    if (colorOption) {
-      colorContainer.style.setProperty("--count", colorOption.values.length);
+  if (!selectedVariant) {
+    alert("Please select all options");
+    return;
+  }
 
-      // Add color indicator
-      const indicator = document.createElement("div");
-      indicator.className = "color-indicator";
-      colorContainer.appendChild(indicator);
-
-      colorOption.values.forEach((color, i) => {
-        const colorBtn = document.createElement("button");
-        colorBtn.textContent = color;
-        colorBtn.className = "color-btn";
-        colorBtn.style.setProperty("--color", color.toLowerCase());
-
-        if (i === 0) colorBtn.classList.add("active");
-
-        colorBtn.addEventListener("click", () => {
-          const buttons = [...document.querySelectorAll(".color-btn")];
-          const prevIndex = buttons.findIndex((b) =>
-            b.classList.contains("active")
+  //  Add main product
+  fetch("/cart/add.js", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ id: selectedVariant.id, quantity: 1 }),
+  })
+    .then((res) => res.json())
+    .then(async () => {
+      // Bonus product condition
+      if (
+        selectedColor?.toLowerCase() === "black" &&
+        selectedSize?.toLowerCase() === "m"
+      ) {
+        try {
+          const bonusProduct = await fetchJSON("/products/dark-winter-jacket.js");
+          const bonusVariant = bonusProduct.variants.find(
+            (v) =>
+              v.option1?.toLowerCase() === "m" &&
+              v.option2?.toLowerCase() === "black"
           );
 
-          // Switch active button
-          buttons.forEach((b) => b.classList.remove("active"));
-          colorBtn.classList.add("active");
-
-          // Move indicator
-          indicator.style.transform = `translateX(${i * 100}%)`;
-
-          // Optional animation if black
-          if (color.toLowerCase() === "black" && i > prevIndex) {
-            colorBtn.style.animation = "slideRight 0.4s ease";
-            colorBtn.addEventListener(
-              "animationend",
-              () => (colorBtn.style.animation = ""),
-              { once: true }
-            );
+          if (bonusVariant) {
+            await fetch("/cart/add.js", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+              },
+              body: JSON.stringify({ id: bonusVariant.id, quantity: 1 }),
+            });
+            console.log("✅ Bonus Winter Jacket added automatically!");
           }
-        });
+        } catch (err) {
+          console.error("Error adding bonus product:", err);
+        }
+      }
 
-        colorContainer.appendChild(colorBtn);
-      });
-    }
+      ModalManager.close();
+      CartDrawerManager.open();
 
-    // ------------------------------
-    // Sizes Dropdown Section
-    // ------------------------------
-    sizeDropdownList.innerHTML = "";
-    const sizeOption = product.options.find(
-      (opt) => opt.name.toLowerCase() === "size"
-    );
-
-    if (sizeOption) {
-      sizeOption.values.forEach((size) => {
-        const btn = document.createElement("button");
-        btn.textContent = size;
-
-        btn.addEventListener("click", () => {
-          const sizeBtn = document.getElementById("sizeDropdownBtn");
-          sizeBtn.textContent = size;
-          sizeDropdownList.classList.remove("open");
-          sizeBtn.classList.remove("active");
-        });
-
-        sizeDropdownList.appendChild(btn);
-      });
-    }
-  }
-
-  // ==============================
-  // Event Handlers
-  // ==============================
-
-  async function handleProductClick(handle) {
-    try {
-      const product = await fetchJSON(`/products/${handle}.js`);
-      currentProduct = product;
-      renderProductModal(product);
-      openModal();
-    } catch (err) {
-      console.error("Error opening product modal:", err);
-    }
-  }
-
-  function handleAddToCart() {
-    if (!currentProduct) {
-      alert("No product selected");
-      return;
-    }
-
-    const selectedColorBtn = document.querySelector(".color-btn.active");
-    const selectedColor = selectedColorBtn?.textContent || null;
-
-    const selectedSize =
-      document.getElementById("sizeDropdownBtn").textContent !==
-      "Choose your size"
-        ? document.getElementById("sizeDropdownBtn").textContent
-        : null;
-
-    const selectedVariant = currentProduct.variants.find(
-      (v) =>
-        (!selectedColor || v.options.includes(selectedColor)) &&
-        (!selectedSize || v.options.includes(selectedSize))
-    );
-
-    if (!selectedVariant) {
-      alert("Please select options");
-      return;
-    }
-
-    // Add product to cart
-    fetch("/cart/add.js", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ id: selectedVariant.id, quantity: 1 }),
+      // Reset size button to default
+      const labelSpan = DOM.sizeDropdownBtn.querySelector(".label");
+      if (labelSpan) labelSpan.textContent = "Choose your size";
+      DOM.sizeDropdownBtn.classList.remove("size-selected");
     })
-      .then((res) => res.json())
-      .then(() => {
-        closeModal();
-        openCartDrawer();
-      })
-      .catch((err) => console.error("Error adding to cart:", err));
-  }
+    .catch((err) => console.error("Error adding to cart:", err));
+}
 
-  // ==============================
-  // Init Event Listeners
-  // ==============================
-  document.addEventListener("DOMContentLoaded", () => {
-    // Product plus buttons
-    document.querySelectorAll(".plus-btn").forEach((btn) => {
-      btn.addEventListener("click", () =>
-        handleProductClick(btn.dataset.handle)
-      );
-    });
-
-    // Cart drawer close
-    document.getElementById("closeCart").addEventListener("click", closeCartDrawer);
-
-    // Size dropdown toggle
-    document
-      .getElementById("sizeDropdownBtn")
-      .addEventListener("click", () => {
-        const list = document.getElementById("sizeDropdownList");
-        const btn = document.getElementById("sizeDropdownBtn");
-        list.classList.toggle("open");
-        btn.classList.toggle("active");
-      });
-
-    // Add to cart
-    document
-      .getElementById("addToCartBtn")
-      .addEventListener("click", handleAddToCart);
-
-    // Close modal: X button
-    document
-      .querySelector(".closeFromSvg")
-      .addEventListener("click", closeModal);
-
-    // Close modal: ESC key
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closeModal();
-    });
-
-    // Close modal: click outside
-    window.addEventListener("click", (e) => {
-      const modal = document.getElementById("myModal");
-      if (e.target === modal) closeModal();
-    });
+// ==============================
+// Init Event Listeners
+// ==============================
+document.addEventListener("DOMContentLoaded", () => {
+  // Product plus buttons
+  document.querySelectorAll(".plus-btn").forEach((plusBtnEl) => {
+    plusBtnEl.addEventListener("click", () =>
+      showProductModal(plusBtnEl.dataset.handle)
+    );
   });
 
+  // Cart drawer close
+  DOM.closeCartBtn.addEventListener("click", CartDrawerManager.close);
+
+  // Size dropdown toggle
+  DOM.sizeDropdownBtn.addEventListener("click", () => {
+    DOM.sizeDropdownList.classList.toggle("open");
+    DOM.sizeDropdownBtn.classList.toggle("active");
+  });
+
+  // Add to cart
+  DOM.addToCartBtn.addEventListener("click", handleAddToCart);
+
+  // Close modal: X button
+  document.querySelector(".closeFromSvg").addEventListener("click", ModalManager.close);
+
+  // Close modal: ESC key
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") ModalManager.close();
+  });
+
+  // Close modal: click outside
+  window.addEventListener("click", (e) => {
+    if (e.target === DOM.modal) ModalManager.close();
+  });
+});
