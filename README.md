@@ -1,7 +1,7 @@
 
 # Project Title
 <span>
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg" alt="Shopify" width="35" style="vertical-align: middle;"/>
+  <img src="docs/assets/shopify.svg" alt="Shopify" width="30"/> 
   <strong> Advanced E-commerce Landing Page (Shopify)</strong>
 </span>
 
