@@ -205,21 +205,25 @@ async function handleProductClick(handle) {
       ? labelSpan?.textContent
       : null;
 
-    console.log("selectedSize:", selectedSize);
-    console.log("selectedColor:", selectedColor);
-
-    const selectedVariant = currentProduct.variants.find((v) => {
-      const matchSize =
-        !selectedSize || v.option1?.toLowerCase() === selectedSize.toLowerCase();
-      const matchColor =
-        !selectedColor || v.option2?.toLowerCase() === selectedColor.toLowerCase();
-      return matchSize && matchColor;
-    });
-
-    if (!selectedVariant) {
-      alert("Please select options");
+    if(!selectedSize) {
+      alert("Please select a size");
       return;
     }
+    if(!selectedColor) {
+      alert("Please select a Color");
+      return;
+    }
+
+    const selectedVariant = currentProduct.variants.find(
+      (v) => 
+        v.option1?.toLowerCase() === selectedSize.toLowerCase() &&
+        v.option2?.toLowerCase() === selectedColor.toLowerCase()
+      );
+
+      if (!selectedVariant) {
+        alert("Please select all options");
+        return;
+      }
 
     //  Add main product
     fetch("/cart/add.js", {
