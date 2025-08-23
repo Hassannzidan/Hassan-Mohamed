@@ -1,6 +1,9 @@
 
 # Project Title
-🛍️ Advanced E-commerce Landing Page (Shopify)
+<span>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/shopify/shopify-original.svg" alt="Shopify" width="35" style="vertical-align: middle;"/>
+  <strong> Advanced E-commerce Landing Page (Shopify)</strong>
+</span>
 
 A fully custom **Shopify landing page** designed with **Liquid, HTML, CSS, and JavaScript**.  
 It includes multiple interactive sections with complete flexibility for store owners through Shopify's Theme Editor.  
